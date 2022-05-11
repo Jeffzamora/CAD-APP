@@ -1,0 +1,59 @@
+{% load static %}
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+    <div class="container">
+        <a href="https://www.logicsa.net" target="_blank" class="navbar-brand">
+            <img src="{% static 'img/logi.png' %}" alt="logicsa Logo"
+                 class="brand-image"
+                 style="opacity: .9">
+        </a>
+        <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                       class="nav-link dropdown-toggle"><i class="fas fa-users"></i> Clientes</a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li><a href="#" class="dropdown-item"><i class="fas fa-list-alt"></i> Contratos</a></li>
+                    </ul>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-check-circle"></i> Solicitudes</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-arrow-alt-circle-down"></i> Ingreso</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-arrow-alt-circle-up"></i> Extracciones</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fa-solid fa-rotate-left"></i> Retorno</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fa-solid fa-user-group"></i> Usuarios</a>
+                </li>
+
+                </li>
+            </ul>
+            <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#"><i
+                            class="fas fa-user-alt"></i> {{ request.user.username }}</a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-header" style="font-size: 12px;">
+                        Sú último acceso fue {{ request.user.last_login }}
+                    </span>
+                    </div>
+                <li class="nav item">
+                    <a class="nav-link" href="#"><i class="fas fa-power-off btn btn-outline-danger " aria-hidden="true">Salir</i></a>
+                </li>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

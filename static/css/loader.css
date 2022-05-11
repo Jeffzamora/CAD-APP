@@ -1,0 +1,92 @@
+{% load static %}
+.loader-page {
+    position: fixed;
+    z-index: 25000;
+    background: transparent;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s ease;
+}
+
+.loader-page::before {
+    content: "";
+    position: absolute;
+    border: 2px solid rgb(50, 150, 176);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border-left: 2px solid rgba(50, 150, 176, 0);
+    border-top: 2px solid rgba(50, 150, 176, 0);
+    animation: rotarload 1s linear infinite;
+    transform: rotate(0deg);
+}
+
+@keyframes rotarload {
+    0% {
+        transform: rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.loader-page::after {
+    content: "";
+    position: absolute;
+    border: 2px solid rgba(50, 150, 176, .5);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border-left: 2px solid rgba(50, 150, 176, 0);
+    border-top: 2px solid rgba(50, 150, 176, 0);
+    animation: rotarload 1s ease-out infinite;
+    transform: rotate(0deg);
+}
+
+
+.table-bordered {
+    border: 0 !important;
+}
+
+.table-bordered > thead > tr > th {
+    border: 0 !important;
+    border-bottom: solid 1px #343a40 !important;
+}
+
+table.table-bordered.dataTable tbody td {
+    border-bottom-width: 1px !important;
+}
+
+.table-bordered > tbody > tr > td {
+    border: 0 !important;
+    border-bottom: 1px solid #cccccc !important;
+}
+
+.table-md th, .table-md td {
+    padding: 0.55rem;
+    font-size: 14px;
+}
+
+.card-footer {
+    border-top: 1px solid #dee2e6;
+}
+
+.btn {
+    color: white !important;
+}
+
+/*td.details-control {*/
+/*    background: url('../lib/datatables-1.10.20/images/details_open.png') no-repeat center center;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*tr.shown td.details-control {*/
+/*    background: url('../lib/datatables-1.10.20/images/details_close.png') no-repeat center center;*/
+/*}*/
