@@ -1,0 +1,80 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ title }}</title>
+    <link rel="shortcut icon" href="{% static 'img/lg.ico' %}">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Quicksand:400,700" rel="stylesheet">
+    <!-- sweet alert-->
+    <script src="{% static 'lib/sweetalert2-11.0.16/sweetalert2.all.min.js' %}"></script>
+</head>
+<body class="align">
+<div class='box'>
+    <div class='box-form'>
+        <div class='box-login-tab'></div>
+        <form action="." method="post">
+            <input type="hidden" name="next" value="{{ next }}">
+            {% csrf_token %}
+            <div class='box-login-title'>
+                <div class='i i-login'></div>
+                <h2>LOGIN</h2>
+            </div>
+            <div class='box-login'>
+                <div class='fieldset-body' id='login_form'>
+                    <div class='b b-form i i-more' title='Mas Informacion'></div>
+                    <p class='field'>
+                        <label for='user'>USUARIO</label>
+                        {{ form.username |add_class:'form-control'|attr:'autocomplete:off'|attr:'placeholder:Ingrese su Usuario' }}
+                    </p>
+                    <p class='field'>
+                        <label for='pass'>CONTRASEÑA</label>
+                        {{ form.password |add_class:'form-control'|attr:'autocomplete:off'|attr:'placeholder:Ingrese su Contraseña' }}
+                    </p>
+                    <label class='checkbox'>
+                        <input type='checkbox' value='TRUE' title='Keep me Signed in'/> Guardar Contraseña?
+                    </label>
+                    <input type='submit' id='do_login' value='INICIAR SESION' title='Get Started'/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class='box-info'>
+        <p>
+            <button onclick="" class='b b-info i i-left' title='Back to Sign In'></button>
+        <h3></h3>
+        </p>
+        <div class='line-wh'></div>
+        <button onclick="" class='b-support' title='Forgot Password?'></button>
+        <button onclick="" class='b-support' title='Contact Support'></button>
+        <div class='line-wh'></div>
+        <button onclick="" class='b-cta' title='Sign up now!'></button>
+    </div>
+</div>
+<script type="application/javascript">
+    {% if form.errors %}
+        var errors = '';
+        {% for field in form %}
+            {% for error in field.errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            errors += '{{ error }}\n';
+        {% endfor %}
+        Swal.fire({
+            title: 'Error!',
+            text: errors,
+            icon: 'error'
+        });
+    {% endif %}
+</script>
+</body>
+</html>
