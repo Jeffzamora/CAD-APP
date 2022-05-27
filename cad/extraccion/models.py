@@ -14,7 +14,7 @@ class extraccion(models.Model):
     date_updated = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.num
+     return "%s" % (self.num)
 
     class Meta:
         db_table = 'extraccion'

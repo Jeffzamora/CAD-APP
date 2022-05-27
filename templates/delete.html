@@ -6,16 +6,14 @@
             <div class="card-header">
                 <h3 class="card-title">
                     <i class="fas fa-trash"></i>
-                    {{ title }}
+                    <b>{{ title }}</b>
                 </h3>
             </div>
             <div class="card-body">
-                {% csrf_token %}
-                <input type="hidden" name="action" value="{{ action }}">
-                {% if form.errors %}
-                    <div class="alert alert-danger alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error al querer guardar el registro</h5>
+                <div class="container-fluid">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="{{ action }}">
+                    {% if form.errors %}
                         <ul>
                             {% for field in form %}
                                 {% for error in field.errors %}
@@ -23,18 +21,18 @@
                                 {% endfor %}
                             {% endfor %}
                         </ul>
-                    </div>
-                {% endif %}
-                <div class="alert alert-danger alert-dismissible">
-                    <h5><i class="icon fas fa-ban"></i> Notificación!</h5>
-                    ¿Estas seguro de eliminar el registro nro {{ object.name }}?
+                    {% endif %}
+                    <p class="text-center font-weight-bold mt-3">
+                        <i class="fas fa-trash fa-3x"></i><br><br>
+                        ¿Estas seguro de eliminar el registro N° {{ object.id }}?
+                    </p>
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-outline-success btn-flat">
-                    <i class="fas fa-save"></i> Si, Aceptar
+                <button type="submit" class="btn btn-primary btn-flat">
+                    <i class="fas fa-save"></i> Si, aceptar
                 </button>
-                <a href="{{ list_url }}" class="btn btn-outline-danger btn-flat">
+                <a href="{{ list_url }}" class="btn btn-danger btn-flat">
                     <i class="fas fa-times"></i> Cancelar
                 </a>
             </div>
@@ -44,12 +42,12 @@
         $('form').on('submit', function (e) {
             e.preventDefault();
             var parameters = new FormData(this);
-            submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de eliminar el siguiente registro?', parameters, function () {
+            submit_with_ajax(pathname, 'Notificación', '¿Estas seguro de eliminar el siguiente registro?', parameters, function () {
                 Swal.fire({
                     title: 'Exito',
                     text: 'Registro eliminado correctamente',
                     icon: 'success',
-                    timer: 3000,
+                    timer: 2000,
                     onClose: () => {
                         location.href = '{{ list_url }}';
                     }

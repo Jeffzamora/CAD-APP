@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 import json
 from django.db.models import Max
+from cad.user.models import *
 
 
 class Customer(models.Model):
@@ -11,10 +12,8 @@ class Customer(models.Model):
     ruc = models.CharField(max_length=14, null=True, verbose_name="Número ruc")
     contact = models.CharField(max_length=300, null=True, verbose_name="Nombre de contacto")
     phone = models.CharField(max_length=8, null=True, verbose_name="Teléfono")
-    email = models.EmailField(max_length=300, null=True, verbose_name="Correo electrónico")
     invoice_ext = models.CharField(max_length=8, null=True, blank=True, verbose_name="Extensión")
     invoice_movil1 = models.CharField(max_length=8, null=True, blank=True, verbose_name="Móvil 1")
-    invoice_movil2 = models.CharField(max_length=8, null=True, blank=True, verbose_name="Móvil 2")
     avatar = models.ImageField(upload_to='avatar/%Y/%m/%d', null=True, blank=True, verbose_name="Logo")
     active = models.BooleanField(default=True)
     date_joined = models.DateField(default=datetime.now, verbose_name='Fecha de Registro')
@@ -23,6 +22,11 @@ class Customer(models.Model):
 
     def __str__(self):
         return "%s %s" % (self.name, self.ruc)
+
+    def get_image(self):
+        if self.avatar:
+            return f'{settings.MEDIA_URL}{self.avatar}'
+        return f'{settings.STATIC_URL}img/empty.png'
 
     @staticmethod
     def get_code():
@@ -38,15 +42,16 @@ class Customer(models.Model):
             self.code = self.get_code()
         super().save(*args, **kwargs)
 
-    # def users(self):
-    #     return User.objects.filter(customer=self)
-    #
+    def users(self):
+        return User.objects.filter(customer=self)
+
     def addresses(self):
         return CustomerAddress.objects.filter(customer=self)
 
     def to_json(self):
         o = super().to_json()
         o['addresses'] = [d.to_json() for d in CustomerAddress.objects.filter(customer=self)]
+        o['image'] = self.get_image()
         return o
 
     class Meta:
@@ -67,4 +72,3 @@ class CustomerAddress(models.Model):
         db_table = 'direccion'
         verbose_name = "direccion"
         verbose_name_plural = "direcciones"
-

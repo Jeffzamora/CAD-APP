@@ -9,7 +9,7 @@ class clienteForm(ModelForm):
         # for form in self.visible_fields():
         #     form.field.widget.attrs['class'] = 'form-control'
         #     form.field.widget.attrs['autocomplete'] = 'off'
-        self.fields['name'].widget.attrs['autofocus'] = True
+        self.fields['code'].widget.attrs['autofocus'] = True
 
     class Meta:
         model = Customer

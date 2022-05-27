@@ -38,13 +38,16 @@ INSTALLED_APPS = [
     'cad.apps.CadConfig',
 
     'fontawesomefree',
+    'cad.login',
+    'cad.user',
     'widget_tweaks',
     'cad.cliente',
     'cad.contrato',
     'cad.extraccion',
     'cad.ingreso',
     'cad.retorno',
-    'cad.solicitudes'
+    'cad.solicitudes',
+    'simple_history',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +58,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # instaladas
+    'crum.CurrentRequestUserMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -82,8 +88,12 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'LOGIC',
+        'USER': 'postgres',
+        'PASSWORD': 'admin123',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
@@ -121,11 +131,37 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+# django
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL = '/cad/dashboard/'
+
+LOGOUT_REDIRECT_URL = '/login/'
+
+LOGIN_URL = '/login/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+MEDIA_URL = '/media/'
+
+AUTH_USER_MODEL = 'user.User'
+
+# Email
+
+# EMAIL_HOST = 'smtp.gmail.com'
+#
+# EMAIL_PORT = 587
+#
+# EMAIL_HOST_USER = 'djangologin99@gmail.com'
+#
+# EMAIL_HOST_PASSWORD = '0m4gATi3rr@'
+#
+# DOMAIN = ''

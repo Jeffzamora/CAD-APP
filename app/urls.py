@@ -18,9 +18,19 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# from django.conf.urls import handler404
+# from core.pos.views.dashboard.views import page_not_found404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cad/', include('cad.url'))
+    path('cad/', include('cad.url')),
+    path('login/', include('cad.login.urls')),
+    path('user/', include('cad.user.urls')),
 
 ]
+
+# handler404 = page_not_found404
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

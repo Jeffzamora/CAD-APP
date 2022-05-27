@@ -4,7 +4,7 @@ from cad.cliente.models import *
 
 class contrato(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, verbose_name="Cliente")
-    num = models.BigIntegerField(null=True, blank=True, verbose_name="Numero de Contrato")
+    num = models.CharField(max_length=100000, null=True, blank=True, verbose_name="Numero de Contrato")
     description = models.CharField(max_length=250, null=True, verbose_name="descripción")
     date_inicio = models.DateField(null=True, verbose_name="Fecha de Inicio")
     date_final = models.DateField(null=True, verbose_name="Fecha Fin")
